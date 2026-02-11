@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Important Presentation For Ella</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:linear-gradient(135deg,#ffdde1,#ee9ca7);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
+}
+
+/* 🌸 Floating flowers */
+.flower{
+position:fixed;
+top:-50px;
+font-size:24px;
+animation:fall linear infinite;
+opacity:0.8;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(360deg);
+}
+}
+
+/* 📦 Slide box */
+.slide{
+width:90%;
+max-width:420px;
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 8px 25px rgba(0,0,0,0.2);
+text-align:center;
+animation:slideIn 0.5s ease;
+}
+
+@keyframes slideIn{
+from{opacity:0; transform:translateY(40px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+button{
+padding:14px 24px;
+font-size:16px;
+border:none;
+border-radius:12px;
+margin-top:20px;
+cursor:pointer;
+background:#ff4d6d;
+color:white;
+transition:0.2s;
+}
+
+button:active{
+transform:scale(0.9);
+}
+
+#noBtn{
+background:#666;
+margin-left:10px;
+position:relative;
+}
+
+img{
+width:140px;
+margin-top:15px;
+border-radius:12px;
+}
+
+/* 🎉 Confetti */
+.confetti{
+position:fixed;
+width:10px;
+height:10px;
+top:0;
+animation:fallConfetti 3s linear forwards;
+}
+
+@keyframes fallConfetti{
+to{
+transform:translateY(100vh) rotate(720deg);
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background music -->
+<audio autoplay loop>
+<source src="mariah.mp3" type="audio/mpeg">
+</audio>
+
+<div class="slide" id="slideBox">
+<h1>Important Presentation</h1>
+<p>Why Ella should be my Valentine 😌</p>
+<button onclick="nextSlide()">Start</button>
+</div>
+
+<script>
+
+/* 🌸 Flower animation generator */
+function createFlower(){
+const flower=document.createElement("div");
+flower.classList.add("flower");
+flower.innerHTML="🌸";
+
+flower.style.left=Math.random()*100+"vw";
+flower.style.animationDuration=(5+Math.random()*5)+"s";
+
+document.body.appendChild(flower);
+
+setTimeout(()=>flower.remove(),9000);
+}
+setInterval(createFlower,600);
+
+/* 🐶 Cute dog GIF slides */
+
+let slides=[
+{
+text:"Reason #1 🤓<br>I am a good boy and I will buy you abele.(I used a Mariah the Scientist song cuz I know you like her.)",
+gif:"https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
+},
+{
+text:"Reason #2 🍕<br>I am willing to share food. That is real love oo.",
+gif:"https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
+},
+{
+text:"Reason #3 🎧<br>I coded this thing from scratch just for you.",
+gif:"https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnFwMXVhYjdpM3Jqc282MnY0YWNlOGJrempsbml3N2Q0ZjI0eGg2cSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/kudIERso2pFiE/giphy.gif"
+},
+{
+text:"Reason #4 😌<br>I would hype you up like you're the main character. 100% be your number one fan",
+gif:"https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif"
+},
+{
+text:"Final Reason ❤️<br>I just genuinely think you're really cool Ella.",
+gif:"https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMW1rMnVyY2MwN3htNGUzcHF6NWF1dHMyYm82cjZiYTh0cTZ5YjQ2cyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/YPY6df50NaYve/giphy.gif"
+}
+];
+
+let index=0;
+
+function nextSlide(){
+
+if(index<slides.length){
+
+slideBox.innerHTML=`
+<h2>${slides[index].text}</h2>
+<img src="${slides[index].gif}">
+<br>
+<button onclick="nextSlide()">Next →</button>
+`;
+
+index++;
+
+}else{
+showQuestion();
+}
+}
+
+/* ❤️ Question Slide */
+function showQuestion(){
+
+slideBox.innerHTML=`
+<h1>So… Ella</h1>
+<p>Will you be my Valentine? 💖</p>
+<button onclick="sayYes()">Yes 😌</button>
+<button id="noBtn">No 🙄</button>
+`;
+
+setupNoButton();
+}
+
+/* 🎉 YES CONFETTI */
+function sayYes(){
+
+slideBox.innerHTML=`
+<h1>LETS GOOOO ❤️</h1>
+<p>I owe you cupcakes now 🧁</p>
+<img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYm5oMm5xbG90bXIxejMxYng2N29xcnA1OXR6c3F3YjgzcTVsa2V0ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/C3zxF4rc9cdFs8aliZ/giphy.gif">
+`;
+
+createConfetti();
+}
+
+function createConfetti(){
+
+for(let i=0;i<120;i++){
+const conf=document.createElement("div");
+conf.classList.add("confetti");
+
+conf.style.left=Math.random()*100+"vw";
+conf.style.background=`hsl(${Math.random()*360},100%,50%)`;
+conf.style.animationDuration=(2+Math.random()*2)+"s";
+
+document.body.appendChild(conf);
+setTimeout(()=>conf.remove(),3000);
+}
+}
+
+/* 😈 Dodge NO button mobile */
+function setupNoButton(){
+
+const btn=document.getElementById("noBtn");
+
+function dodge(){
+const maxX=window.innerWidth-btn.offsetWidth-40;
+const maxY=window.innerHeight-btn.offsetHeight-40;
+
+btn.style.position="fixed";
+btn.style.left=Math.random()*maxX+"px";
+btn.style.top=Math.random()*maxY+"px";
+}
+
+btn.addEventListener("touchstart",dodge);
+btn.addEventListener("mouseover",dodge);
+btn.addEventListener("click",dodge);
+}
+
+</script>
+
+</body>
+</html>
+
